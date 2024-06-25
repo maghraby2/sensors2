@@ -7,12 +7,12 @@ WORKDIR /var/www/html
 # Copy the application code to the container
 COPY . .
 
-# Install dependencies
-RUN apk add --no-cache git unzip curl && \
-    curl -sS https://getcomposer.org/installer | php && \
-    mv composer.phar /usr/local/bin/composer && \
-    composer install --no-dev --optimize-autoloader && \
-    apk del git unzip curl
+# Install dependencies and Composer
+RUN apk add --no-cache git unzip curl php8 php8-phar php8-openssl \
+    && curl -sS https://getcomposer.org/installer | php8 \
+    && mv composer.phar /usr/local/bin/composer \
+    && composer install --no-dev --optimize-autoloader \
+    && apk del git unzip curl
 
 # Set permissions for Laravel
 RUN chown -R nginx:nginx /var/www/html/storage /var/www/html/bootstrap/cache
