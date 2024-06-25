@@ -9,5 +9,4 @@ use App\Http\Controllers\SensorReadingController;
 
 
 Route::get('sensor-readings/{sensor}', [SensorReadingController::class, 'show']);
-
-Route::post('sensor-readings', [SensorReadingController::class, 'store']);
+Route::get('sensor-readings', [SensorReadingController::class, 'store']);
