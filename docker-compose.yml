@@ -16,6 +16,14 @@ services:
       - DB_DATABASE=laravel
       - DB_USERNAME=root
       - DB_PASSWORD=root
+    command: >
+      sh -c "
+      composer install --no-dev --optimize-autoloader &&
+      php artisan config:cache &&
+      php artisan route:cache &&
+      php artisan migrate --force &&
+      /start.sh
+      "
 
   db:
     image: mysql:5.7
